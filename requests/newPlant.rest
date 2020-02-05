@@ -1,0 +1,9 @@
+POST  http://localhost:3001/api/plants/
+Content-Type: application/json
+
+{
+    "name": "test",
+    "location": "test",
+    "light": "test",
+    "water": "test"
+}

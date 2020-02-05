@@ -1,0 +1,1 @@
+DELETE http://localhost:3001/api/plants/5e3b46e6711e145720dcd034
