@@ -16,6 +16,18 @@ const plantSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
+  },
+  location: {
+    type: String,
+    required: true
+  },
+  light: {
+    type: String,
+    required: true
+  },
+  water: {
+    type: String,
+    required: true
   }
 });
 
