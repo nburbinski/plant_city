@@ -11,10 +11,21 @@ const SearchPlants = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <p>What plant would you like to search for?</p>
-        <input onChange={e => setPlant(e.target.value)}></input>
-        <button type="submit">Search</button>
+      <form
+        onSubmit={handleSubmit}
+        className="form-inline md-form mr-auto mb-4"
+      >
+        <input
+          className="form-control mr-sm-2"
+          type="text"
+          value={plant}
+          onChange={e => setPlant(e.target.value)}
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button className="btn primary btn-rounded btn-sm my-0" type="submit">
+          Search
+        </button>
       </form>
     </div>
   );
