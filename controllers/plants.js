@@ -16,7 +16,8 @@ plantsRouter.post("/", (request, response, next) => {
     name: body.name,
     location: body.location,
     light: body.light,
-    water: body.water
+    water: body.water,
+    date: body.date
   });
 
   plant
@@ -44,7 +45,8 @@ plantsRouter.put("/:id", (request, response) => {
     name: body.name,
     location: body.location,
     light: body.light,
-    water: body.water
+    water: body.water,
+    date: body.date
   };
 
   Plant.findByIdAndUpdate(request.params.id, plant, { new: true }).then(

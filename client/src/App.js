@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from "react";
 
+// Import components
 import SearchPlants from "./components/SearchPlants";
 import PlantList from "./components/PlantList";
 import Login from "./components/Login";
 import PlantForm from "./components/PlantForm";
+import Navbar from "./components/Navbar";
 
 import plantService from "./services/plants";
+
+import "./App.css";
+import { set } from "mongoose";
 
 function App() {
   const [user, setUser] = useState(null);
   const [plants, setPlants] = useState([]);
+  const [plantForm, setPlantForm] = useState(0);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedPlantUser");
@@ -24,7 +30,7 @@ function App() {
     plantService.getAll().then(plants => {
       setPlants(plants.data);
     });
-  }, []);
+  }, [plants]);
 
   const handleLogout = () => {
     window.localStorage.removeItem("loggedPlantUser");
@@ -33,36 +39,49 @@ function App() {
 
   if (user === null)
     return (
-      <div className="App">
-        <h1 className="text-center">Plant City BBY</h1>
+      <div className="Login">
+        <div className="login-header">
+          <h1>Plant City</h1>
+        </div>
 
-        <header className="App-header">
+        <div className="login-body">
           <Login setUser={setUser} />
-        </header>
+        </div>
       </div>
     );
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1 className="text-center">Plant City BBY</h1>
-      </header>
-      <div className="container">
-        <div className="nav nav-tabs navbar-right">
-          {`${user.name} is logged in `}{" "}
-          <button
-            className="btn btn-danger ml-2 mb-2"
-            variant="danger"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        </div>
-
+      <div className={plantForm === 1 ? "overlay" : ""}></div>
+      <PlantForm
+        plantForm={plantForm}
+        setPlantForm={setPlantForm}
+        setPlants={setPlants}
+      />
+      <section>
+        <header className="App-header">
+          <h1>Plant City</h1>
+          <div className="logout">
+            {`${user.name} is logged in `}{" "}
+            <button className="btn btn-logout" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+          <Navbar />
+        </header>
+      </section>
+      <section className="App-body">
         <SearchPlants />
-        <PlantForm />
-        <PlantList plants={plants} />
-      </div>
+        <button
+          className={plantForm === 0 ? "btn btn-addplant" : "hidden"}
+          onClick={() => setPlantForm(1)}
+        >
+          Add a plant!
+        </button>
+        <section className="App-body-main">
+          <PlantList plants={plants} setPlants={setPlants} />
+        </section>
+      </section>
     </div>
   );
 }

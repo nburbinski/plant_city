@@ -2,15 +2,14 @@ import React from "react";
 import Plant from "./Plant";
 
 const PlantList = ({ plants }) => {
-  if (plants === null) return <div> No plants added yet! </div>;
+  if (!plants)
+    return <div> No plants added yet! or Server cannot be reached </div>;
 
   return (
-    <div className="container">
-      <div className="card-deck">
-        {plants.map(plant => (
-          <Plant key={plant.id} plant={plant} />
-        ))}
-      </div>
+    <div className="card-list">
+      {plants.map(plant => (
+        <Plant key={plant.id} plant={plant} />
+      ))}
     </div>
   );
 };
