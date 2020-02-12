@@ -1,7 +1,7 @@
 import React from "react";
 const Navbar = () => {
   return (
-    <nav class="main-nav">
+    <nav className="main-nav">
       <ul>
         <li>
           <a>Home</a>

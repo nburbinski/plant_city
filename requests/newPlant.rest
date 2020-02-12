@@ -1,5 +1,6 @@
 POST  http://localhost:3001/api/plants/
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QiLCJpZCI6IjVlM2I0YWMyZDAyZWU1MGE0YzMzY2Q1YiIsImlhdCI6MTU4MTQ3MDU1MH0.iwE8vUN4rw-lXnztqCIQfnd6q_aoY55bPb8Yz9LFNV8
 
 {
     "name": "test",

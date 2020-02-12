@@ -38,8 +38,7 @@ const plantSchema = new mongoose.Schema({
     ref: "User"
   },
   date: {
-    type: Date,
-    required: true
+    type: Date
   }
 });
 

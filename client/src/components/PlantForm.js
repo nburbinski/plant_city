@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import plantService from "../services/plants";
 import OutsideAlerter from "./OutsideAlerter";
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
 const PlantForm = ({ plantForm, setPlantForm, setPlants }) => {
   const [plantName, setPlantName] = useState("");
   const [location, setLocation] = useState("Inside");
@@ -45,84 +42,64 @@ const PlantForm = ({ plantForm, setPlantForm, setPlants }) => {
 
   return (
     <OutsideAlerter setPlantForm={setPlantForm}>
-      <div className="plant-form">
+      <form onSubmit={handleSubmit} className="plant-form">
         <h1>Add a new plant</h1>
-        <form onSubmit={handleSubmit} className="form">
-          <div className="form-group">
-            <div className="form-label text-right">Plant Name: </div>
-            <div className="col" sm={5}>
-              <input
-                className="form-control"
-                type="text"
-                value={plantName}
-                onChange={({ target }) => setPlantName(target.value)}
-              ></input>
-            </div>
-          </div>
-          <div className="form-group">
-            <div className="form-label text-right">Water requirements: </div>
-            <div className="col" sm={5}>
-              <select
-                className="form-control"
-                value={water}
-                onChange={({ target }) =>
-                  setWater(target.value) && setOtherWater(target.value)
-                }
-              >
-                <option>Top 1/2 inch is dry</option>
-                <option>Top 1 inch is dry</option>
-                <option>Other</option>
-              </select>
-              <input
-                type="text"
-                className={water === "Other" ? "form-control" : "d-none "}
-                value={otherWater}
-                onChange={({ target }) => setOtherWater(target.value)}
-              ></input>
-            </div>
-          </div>{" "}
-          <div className="form-group">
-            <div className="form-label text-right">Light requirements:</div>
-            <div className="col">
-              <select
-                className="form-control"
-                onChange={({ target }) => setLight(target.value)}
-              >
-                <option>Bright Light</option>
-                <option>Indirect Light</option>
-                <option>Partial Shade</option>
-              </select>
-            </div>
-          </div>
-          <div className="form-group">
-            <div className="form-label text-right">Location: </div>
-            <div className="col" sm={5}>
-              <select
-                className="form-control"
-                onChange={({ target }) => setLocation(target.value)}
-              >
-                <option>Inside</option>
-                <option>Outside</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            Last Watered:{" "}
-            <DatePicker
-              selected={startDate}
-              onChange={date => setStartDate(date)}
-            />{" "}
-          </div>
-          <div>
-            <button className="btn " type="submit">
-              Add Plant!
-            </button>
-            <button className="btn " onClick={() => setPlantForm(0)}>
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>{" "}
+        <div className="form-group">
+          <div className="plant-form-query">Plant Name: </div>
+          <input
+            className=""
+            type="text"
+            placeholder="Enter plant name here..."
+            value={plantName}
+            onChange={({ target }) => setPlantName(target.value)}
+          ></input>
+        </div>
+        <div className="form-group">
+          <div className="plant-form-query">Water requirements: </div>
+          <select
+            className=""
+            value={water}
+            onChange={({ target }) =>
+              setWater(target.value) && setOtherWater(target.value)
+            }
+          >
+            <option>Top 1/2 inch is dry</option>
+            <option>Top 1 inch is dry</option>
+            <option>Other</option>
+          </select>
+          {/* <input
+            type="text"
+            className={water !== "Other" ? "hidden" : ""}
+            value={otherWater}
+            onChange={({ target }) => setOtherWater(target.value)}
+          ></input> */}
+        </div>
+        <div className="form-group">
+          <div className="plant-form-query">Light requirements:</div>
+          <select
+            className="l"
+            onChange={({ target }) => setLight(target.value)}
+          >
+            <option>Bright Light</option>
+            <option>Indirect Light</option>
+            <option>Partial Shade</option>
+          </select>
+          <div className="plant-form-query">Location: </div>
+          <select
+            className=""
+            onChange={({ target }) => setLocation(target.value)}
+          >
+            <option>Inside</option>
+            <option>Outside</option>
+          </select>
+        </div>
+        <button className="btn " type="submit">
+          Add Plant!
+        </button>
+        <button className="btn btn-cancel " onClick={() => setPlantForm(0)}>
+          Cancel
+        </button>
+      </form>
     </OutsideAlerter>
   );
 };

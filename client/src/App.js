@@ -10,7 +10,6 @@ import Navbar from "./components/Navbar";
 import plantService from "./services/plants";
 
 import "./App.css";
-import { set } from "mongoose";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -72,10 +71,7 @@ function App() {
       </section>
       <section className="App-body">
         <SearchPlants />
-        <button
-          className={plantForm === 0 ? "btn btn-addplant" : "hidden"}
-          onClick={() => setPlantForm(1)}
-        >
+        <button className="btn btn-addplant" onClick={() => setPlantForm(1)}>
           Add a plant!
         </button>
         <section className="App-body-main">
