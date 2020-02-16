@@ -13,10 +13,34 @@ const getTokenFrom = request => {
 };
 
 // Get all plants
-plantsRouter.get("/", (request, response) => {
-  Plant.find({}).then(plants => {
+plantsRouter.get("/", async (request, response) => {
+  const token = getTokenFrom(request);
+
+  if (!token) {
+    return response
+      .status(401)
+      .json({ error: "No token" })
+      .end();
+  }
+
+  try {
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    if (!token || !decodedToken.id) {
+      return response.status(401).json({ error: "token missing or invalid" });
+    }
+    const user = await User.findById(decodedToken.id);
+    const plants = await Plant.find({ _id: { $in: user.plants } });
+
     response.json(plants.map(plant => plant.toJSON()));
-  });
+  } catch (error) {
+    error => response.status(400).end();
+  }
+
+  // Find All
+
+  // Plant.find({}).then(plants => {
+  //   response.json(plants.map(plant => plant.toJSON()));
+  // });
 });
 
 // Add new plant
@@ -33,10 +57,9 @@ plantsRouter.post("/", async (request, response, next) => {
 
     const plant = new Plant({
       name: body.name,
-      location: body.location,
       light: body.light,
       water: body.water,
-      date: body.date,
+      lastWatered: body.lastWatered,
       user: user._id
     });
 
@@ -53,11 +76,12 @@ plantsRouter.post("/", async (request, response, next) => {
 plantsRouter.delete("/:id", async (request, response) => {
   const token = getTokenFrom(request);
 
-  if (!token)
+  if (!token) {
     return response
       .status(401)
       .json({ error: "No token" })
       .end();
+  }
 
   try {
     const decodedToken = jwt.verify(token, process.env.SECRET);
@@ -94,22 +118,48 @@ plantsRouter.delete("/:id", async (request, response) => {
 });
 
 // Update plant
-plantsRouter.put("/:id", (request, response) => {
+plantsRouter.put("/:id", async (request, response) => {
   const body = request.body;
+  const token = getTokenFrom(request);
 
-  const plant = {
-    name: body.name,
-    location: body.location,
-    light: body.light,
-    water: body.water,
-    date: body.date
-  };
+  if (!token) {
+    return response
+      .status(401)
+      .json({ error: "No token" })
+      .end();
+  }
 
-  Plant.findByIdAndUpdate(request.params.id, plant, { new: true }).then(
-    updated => {
-      response.json(updated.toJSON());
+  try {
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    if (!decodedToken.id) {
+      return response
+        .status(401)
+        .json({ error: "token invalid" })
+        .end();
     }
-  );
+
+    const user = await User.findById(decodedToken.id);
+    const plant = await Plant.findById(request.params.id);
+
+    if (!user || !plant) {
+      return response
+        .status(401)
+        .json({ error: "user or plant not found" })
+        .end();
+    }
+    const updatedPlant = {
+      name: body.name,
+      light: body.light,
+      water: body.water,
+      lastWatered: body.lastWatered
+    };
+
+    Plant.findByIdAndUpdate(request.params.id, updatedPlant).then(result => {
+      response.status(201).end();
+    });
+  } catch {
+    error => response.status(400).end();
+  }
 });
 
 module.exports = plantsRouter;

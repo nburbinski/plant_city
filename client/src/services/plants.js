@@ -8,10 +8,15 @@ const setToken = newToken => {
   token = `bearer ${newToken}`;
 };
 
+// Return all plants
 const getAll = () => {
-  return axios.get(baseUrl);
+  const config = {
+    headers: { Authorization: token }
+  };
+  return axios.get(baseUrl, config);
 };
 
+// Make a plant
 const create = async newObject => {
   const config = {
     headers: { Authorization: token }
@@ -20,16 +25,26 @@ const create = async newObject => {
   return response.data;
 };
 
+// Update a plant
 const update = (id, newObject) => {
-  return axios.put(`${baseUrl}/${id}`, newObject);
+  const config = {
+    headers: { Authorization: token }
+  };
+
+  return axios.put(`${baseUrl}/${id}`, newObject, config);
 };
 
+// Delete a plant
 const deletePlant = async id => {
   const config = {
     headers: { Authorization: token }
   };
   const request = axios.delete(`${baseUrl}/${id}`, config);
-  return request.then(response => response.data);
+  const response = await request
+    .then(response => response.data)
+    .catch(error => console.log(error));
+  console.log(response);
+  return response;
 };
 
 export default { getAll, create, update, deletePlant, setToken };

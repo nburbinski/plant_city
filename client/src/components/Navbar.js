@@ -2,20 +2,11 @@ import React from "react";
 const Navbar = () => {
   return (
     <nav className="main-nav">
-      <ul>
-        <li>
-          <a>Home</a>
-        </li>
-        <li>
-          <a>About</a>
-        </li>
-        <li>
-          <a>Services</a>
-        </li>
-        <li>
-          <a>Contact</a>
-        </li>
-      </ul>
+      <button className="btn">Home</button>
+
+      <button className="btn">About</button>
+
+      <button className="btn">GitHub</button>
     </nav>
   );
 };

@@ -21,10 +21,6 @@ const plantSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  location: {
-    type: String,
-    required: true
-  },
   light: {
     type: String,
     required: true
@@ -37,8 +33,8 @@ const plantSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
-  date: {
-    type: Date
+  lastWatered: {
+    type: Array
   }
 });
 

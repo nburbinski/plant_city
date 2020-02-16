@@ -1,0 +1,344 @@
+@import "https://fonts.googleapis.com/css?family=Karla";
+
+/* Variables*/
+:root {
+  --primary: #ddd;
+  --dark: #333;
+  --light: #fff;
+  --shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+  --bg-color: #086972;
+  --secondary-color: #071a52;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Karla;
+}
+
+html {
+  background-color: var(--bg-color);
+  color: var(--light);
+}
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.9); /* Black w/opacity */
+  overflow-x: hidden;
+  transition: 0.4s;
+  margin-top: 0;
+}
+
+#root {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+.App {
+}
+
+.Login input[type="text"],
+.Login input[type="password"] {
+  padding: 0.75em;
+  display: inline-block;
+  border: 1px solid #ccc;
+  width: 30em;
+}
+
+/* Login Form */
+
+.form-group {
+  align-items: start;
+  text-align: center;
+}
+
+.form-label {
+  margin: 0.5em;
+  text-align: left;
+}
+
+.form-control {
+}
+
+/* App Main */
+.App-body {
+  grid-area: App-body;
+  align-items: start;
+  margin-left: 1em;
+}
+
+/* Header */
+.App-header {
+  text-align: center;
+  grid-area: App-header;
+  background-color: #071a52;
+  padding: 1rem;
+  margin: 0 1rem 0 0;
+  top: 0em;
+  bottom: 0em;
+}
+
+/* Navigation */
+.main-nav ul {
+  display: grid;
+  grid-gap: 20px;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: 1fr;
+}
+
+.main-nav a {
+  background: var(--primary);
+  display: block;
+  text-decoration: none;
+  padding: 0.8rem;
+  text-align: center;
+  color: var(--dark);
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  box-shadow: var(--shadow);
+}
+
+.main-nav a:hover {
+  background: var(--dark);
+  color: var(--light);
+}
+
+.App-header h1 {
+  font-size: 2em;
+}
+
+/* Buttons */
+.btn {
+  background-color: #2d385a;
+  border: none;
+  color: white;
+  padding: 0.5em 1em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 0.2em;
+  margin: 1em;
+  box-shadow: var(--shadow);
+  font-family: Karla;
+}
+
+.btn-createuser {
+  background-color: none;
+  border: none;
+  text-decoration: none;
+}
+.btn:hover {
+  opacity: 85%;
+}
+
+.btn-cancel {
+  width: 50%;
+  text-align: center;
+}
+
+.btn-logout {
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 1em;
+  border-radius: 0.2em;
+  color: black;
+  margin-left: 0.25em;
+}
+
+.btn-addplant {
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Login */
+.Login {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.login-header {
+  text-align: center;
+  font-size: 2.5em;
+  margin: 1em;
+}
+
+.login-body {
+  background-color: var(--secondary-color);
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2em;
+  border-radius: 1em;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.login-body button {
+  margin-top: 1.5em;
+  margin-bottom: 0;
+}
+
+/* Plant Card */
+
+.card-list {
+  margin-right: 2em;
+  align-items: start;
+  display: grid;
+  gap: 2em;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.card-body {
+  background-color: var(--secondary-color);
+
+  padding: 1em;
+  border-radius: 0.75em;
+  display: grid;
+  align-items: left;
+  box-sizing: border-box;
+  grid-template-columns: auto;
+}
+
+.card-body ul {
+  margin: 0;
+}
+.card-title {
+  font-family: Karla;
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: 0em;
+  margin-bottom: 0.5em;
+}
+
+.card-text {
+  font-family: Karla;
+  list-style: none;
+}
+
+.card-text p {
+  display: inline-block;
+  margin: 0.5em;
+}
+
+.card-text-title {
+  font-weight: bold;
+}
+
+.card-image {
+  margin: 0.2em;
+  padding: 0;
+}
+
+.card-body ul {
+  padding: 0;
+}
+
+.datepicker {
+  max-width: 5em;
+}
+
+/* Plant Form */
+
+.plant-form {
+  padding: 1.5em;
+  background-color: rgb(104, 184, 25);
+  border-radius: 0.5em;
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  left: 33%;
+  right: 33%;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 25%;
+  box-sizing: border-box;
+  gap: 0;
+}
+
+.plant-form h1 {
+  margin: 0;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+.plant-form-group {
+  box-sizing: border-box;
+}
+
+.plant-form-query {
+  margin: 0;
+}
+.plant-form-input {
+  padding: 0.75em;
+  display: inline-block;
+  border: 1px solid #ccc;
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Media Queries */
+
+@media (max-width: 1250px) {
+  .card-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 1000px) {
+  .card-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .plant-form {
+    padding: 1.5em;
+    background-color: rgb(104, 184, 25);
+    border-radius: 0.5em;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 0;
+  }
+  .plant-form-input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .card-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .App {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: none;
+  }
+}
