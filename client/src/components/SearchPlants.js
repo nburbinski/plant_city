@@ -9,7 +9,7 @@ const SearchPlants = ({ plants, setPlants, allPlants }) => {
       plant =>
         plant.name.toLowerCase().indexOf(searchPlant.toLowerCase()) !== -1
     );
-
+    console.log(filteredList);
     setPlants(filteredList);
   };
 
@@ -23,7 +23,7 @@ const SearchPlants = ({ plants, setPlants, allPlants }) => {
         placeholder="Search"
         aria-label="Search"
       />
-      <button className="btn" type="submit">
+      <button className="btn btn-search" type="submit">
         Search
       </button>
     </form>

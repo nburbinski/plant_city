@@ -35,7 +35,7 @@ function App() {
       setAllPlants(plants.data);
       setPlants(plants.data);
     });
-  }, []);
+  }, [allPlants]);
 
   const handleLogout = () => {
     setPlants([]);
@@ -69,7 +69,7 @@ function App() {
       <PlantForm
         plantForm={plantForm}
         setPlantForm={setPlantForm}
-        setPlants={setPlants}
+        setPlants={setAllPlants}
         setConfMessage={setConfMessage}
       />
       <header className="plant-app-header">
