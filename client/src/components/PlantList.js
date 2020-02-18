@@ -1,7 +1,7 @@
 import React from "react";
 import Plant from "./Plant";
 
-const PlantList = ({ plants, setPlantForm, setConfMessage }) => {
+const PlantList = ({ plants, setPlantForm, setConfMessage, setPlants }) => {
   if (!plants || plants.length === 0)
     return (
       <>
@@ -18,7 +18,13 @@ const PlantList = ({ plants, setPlantForm, setConfMessage }) => {
   return (
     <div className="card-list">
       {plants.map(plant => (
-        <Plant key={plant.id} plant={plant} setConfMessage={setConfMessage} />
+        <Plant
+          key={plant.id}
+          plant={plant}
+          setConfMessage={setConfMessage}
+          setPlants={setPlants}
+          plants={plants}
+        />
       ))}
       <div onClick={() => setPlantForm(1)} className="card-body card-body-add ">
         <i className="fas fa-plus"></i>

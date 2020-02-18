@@ -9,7 +9,6 @@ const SearchPlants = ({ plants, setPlants, allPlants }) => {
       plant =>
         plant.name.toLowerCase().indexOf(searchPlant.toLowerCase()) !== -1
     );
-    console.log(filteredList);
     setPlants(filteredList);
   };
 

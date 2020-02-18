@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import plantService from "../services/plants";
 
-const Plant = ({ plant, setConfMessage }) => {
+const Plant = ({ plant, setConfMessage, setPlants, plants }) => {
   // Place date into proper format
   // Grab last watered date in array
   const correctedDate = new Date(
@@ -39,7 +39,6 @@ const Plant = ({ plant, setConfMessage }) => {
       await plantService.update(plant.id, newPlant);
     } catch (error) {
       setConfMessage([error.message, 0]);
-      return;
     }
 
     setConfMessage(["Succesfully Updated Plant! ", 1]);
@@ -47,9 +46,11 @@ const Plant = ({ plant, setConfMessage }) => {
 
   // Handle Delete
   const handleDelete = () => {
-    if (window.confirm(`Delete ${plant.name} ?`)) {
+    if (window.confirm(`Are you sure you want to delete ${plant.name}?`)) {
       try {
         plantService.deletePlant(plant.id);
+        const newPlants = plants.filter(p => p.id !== plant.id);
+        setPlants(newPlants);
       } catch (error) {
         setConfMessage([error.message, 0]);
       }
@@ -81,9 +82,7 @@ const Plant = ({ plant, setConfMessage }) => {
           </button>
         </li>
       </ul>
-      <button className="btn btn-danger card-btn" onClick={handleDelete}>
-        Delete?
-      </button>
+      <i className=" btn-danger fas fa-trash-alt" onClick={handleDelete}></i>
     </div>
   );
 };

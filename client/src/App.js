@@ -10,8 +10,6 @@ import Notification from "./components/Notification";
 
 import plantService from "./services/plants";
 
-import "./App.css";
-
 function App() {
   const [user, setUser] = useState(null);
   const [allPlants, setAllPlants] = useState([]);
@@ -35,7 +33,7 @@ function App() {
       setAllPlants(plants.data);
       setPlants(plants.data);
     });
-  }, [allPlants]);
+  }, []);
 
   const handleLogout = () => {
     setPlants([]);
@@ -71,6 +69,7 @@ function App() {
         setPlantForm={setPlantForm}
         setPlants={setAllPlants}
         setConfMessage={setConfMessage}
+        plants={plants}
       />
       <header className="plant-app-header">
         <h1>Plant City</h1>
@@ -78,17 +77,17 @@ function App() {
           {`Hi, ${user.name}!`}
           <button className="fa fa-sign-out" onClick={handleLogout}></button>
         </div>
+        <SearchPlants
+          plants={plants}
+          setPlants={setPlants}
+          allPlants={allPlants}
+        />
         <Navbar />
       </header>
       <section className="app-body">
         <Notification
           confMessage={confMessage}
           setConfMessage={setConfMessage}
-        />
-        <SearchPlants
-          plants={plants}
-          setPlants={setPlants}
-          allPlants={allPlants}
         />
         <section className="app-body-main">
           <PlantList

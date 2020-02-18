@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import plantService from "../services/plants";
 import OutsideAlerter from "./OutsideAlerter";
 
-const PlantForm = ({ plantForm, setPlantForm, setPlants, setConfMessage }) => {
+const PlantForm = ({
+  plantForm,
+  setPlantForm,
+  setPlants,
+  setConfMessage,
+  plants
+}) => {
   const [plantName, setPlantName] = useState("");
-  const [location, setLocation] = useState("Inside");
   const [light, setLight] = useState("Indirect Light");
   const [water, setWater] = useState("Top 1/2 inch is dry");
   const [otherWater, setOtherWater] = useState("");
@@ -21,7 +26,6 @@ const PlantForm = ({ plantForm, setPlantForm, setPlants, setConfMessage }) => {
     if (water === "Other") {
       const plant = {
         name: plantName,
-        location: location,
         light: light,
         water: otherWater,
         lastWatered: [lastWatered]
@@ -29,12 +33,11 @@ const PlantForm = ({ plantForm, setPlantForm, setPlants, setConfMessage }) => {
 
       plantService
         .create(plant)
-        .then(response => console.log(response))
+        .then(response => setPlants(plants.concat(response)))
         .catch(error => setConfMessage([error.message, 0]));
     } else {
       const plant = {
         name: plantName,
-        location: location,
         light: light,
         water: water,
         lastWatered: [lastWatered]
@@ -42,20 +45,14 @@ const PlantForm = ({ plantForm, setPlantForm, setPlants, setConfMessage }) => {
 
       plantService
         .create(plant)
-        .then(response => console.log(response))
+        .then(response => setPlants(plants.concat(response)))
         .catch(error => setConfMessage([error.message, 0]));
     }
-
-    plantService.getAll().then(plants => {
-      setPlants(plants.data);
-    });
-
     setPlantName("");
-    setWater("");
-
+    setWater("Top 1/2 inch is dry");
+    setLight("Indirect Light");
+    setLastWatered(new Date());
     setPlantForm(0);
-
-    return;
   };
 
   return (
