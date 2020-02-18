@@ -25,7 +25,7 @@ const Login = ({ setUser, setConfMessage }) => {
       setUsername("");
       setUser(user);
     } catch (error) {
-      setConfMessage(error.message);
+      setConfMessage([error.message, 0]);
     }
 
     return;

@@ -14,9 +14,10 @@ import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [allPlants, setAllPlants] = useState([]);
   const [plants, setPlants] = useState([]);
   const [plantForm, setPlantForm] = useState(0);
-  const [confMessage, setConfMessage] = useState("");
+  const [confMessage, setConfMessage] = useState([]);
 
   // Check if user is logged in
   useEffect(() => {
@@ -31,16 +32,16 @@ function App() {
   // Get all plants
   useEffect(() => {
     plantService.getAll().then(plants => {
+      setAllPlants(plants.data);
       setPlants(plants.data);
-      console.log(plants);
     });
-  }, [plants]);
+  }, []);
 
   const handleLogout = () => {
+    setPlants([]);
     window.localStorage.removeItem("loggedPlantUser");
     setUser(null);
   };
-  //       <div className={plantForm === 1 ? "overlay" : ""}></div>
 
   // Render login in if there is no user
   if (user === null)
@@ -65,7 +66,6 @@ function App() {
   // Render app
   return (
     <div className="plant-app">
-      <Notification confMessage={confMessage} setConfMessage={setConfMessage} />
       <PlantForm
         plantForm={plantForm}
         setPlantForm={setPlantForm}
@@ -75,13 +75,21 @@ function App() {
       <header className="plant-app-header">
         <h1>Plant City</h1>
         <div className="logout">
-          {`${user.name}`}
+          {`Hi, ${user.name}!`}
           <button className="fa fa-sign-out" onClick={handleLogout}></button>
         </div>
         <Navbar />
       </header>
       <section className="app-body">
-        <SearchPlants />
+        <Notification
+          confMessage={confMessage}
+          setConfMessage={setConfMessage}
+        />
+        <SearchPlants
+          plants={plants}
+          setPlants={setPlants}
+          allPlants={allPlants}
+        />
         <section className="app-body-main">
           <PlantList
             plants={plants}

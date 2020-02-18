@@ -37,5 +37,9 @@ export default function OutsideAlerter(props) {
   const wrapperRef = useRef(null);
   useOutsideAlerter({ wrapperRef, setPlantForm });
 
-  return <div ref={wrapperRef}>{props.children}</div>;
+  return (
+    <div className="plant-form-wrapper" ref={wrapperRef}>
+      {props.children}
+    </div>
+  );
 }

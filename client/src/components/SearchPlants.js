@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import plantService from "../services/plants";
 
-const SearchPlants = () => {
-  const [plant, setPlant] = useState("");
+const SearchPlants = ({ plants, setPlants, allPlants }) => {
+  const [searchPlant, setSearchPlant] = useState("");
   const handleSubmit = async event => {
     event.preventDefault();
 
-    console.log(await plantService.getAll());
+    const filteredList = allPlants.filter(
+      plant =>
+        plant.name.toLowerCase().indexOf(searchPlant.toLowerCase()) !== -1
+    );
+
+    setPlants(filteredList);
   };
 
   return (
@@ -14,8 +18,8 @@ const SearchPlants = () => {
       <input
         className=""
         type="text"
-        value={plant}
-        onChange={e => setPlant(e.target.value)}
+        value={searchPlant}
+        onChange={e => setSearchPlant(e.target.value)}
         placeholder="Search"
         aria-label="Search"
       />

@@ -6,7 +6,14 @@ const Navbar = () => {
 
       <button className="btn">About</button>
 
-      <button className="btn">GitHub</button>
+      <button
+        onClick={() =>
+          window.open("https://github.com/nburbinski/plant_city", "github repo")
+        }
+        className="btn"
+      >
+        GitHub
+      </button>
     </nav>
   );
 };

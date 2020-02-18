@@ -7,11 +7,18 @@ const Notification = ({ confMessage, setConfMessage }) => {
   setTimeout(() => {
     setConfMessage("");
   }, 4000);
-
-  return (
-    <>
-      <p className="notif">{confMessage}</p>
-    </>
-  );
+  if (confMessage[1] === 1) {
+    return (
+      <>
+        <p className="notif-success">{confMessage[0]}</p>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <p className="notif-fail">{confMessage[0]}</p>
+      </>
+    );
+  }
 };
 export default Notification;

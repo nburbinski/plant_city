@@ -35,9 +35,14 @@ const Plant = ({ plant, setConfMessage }) => {
       ...plant,
       lastWatered: newLastWatered
     };
+    try {
+      await plantService.update(plant.id, newPlant);
+    } catch (error) {
+      setConfMessage([error.message, 0]);
+      return;
+    }
 
-    console.log(newPlant);
-    plantService.update(plant.id, newPlant);
+    setConfMessage(["Succesfully Updated Plant! ", 1]);
   };
 
   // Handle Delete
@@ -46,7 +51,7 @@ const Plant = ({ plant, setConfMessage }) => {
       try {
         plantService.deletePlant(plant.id);
       } catch (error) {
-        setConfMessage(error);
+        setConfMessage([error.message, 0]);
       }
     }
   };

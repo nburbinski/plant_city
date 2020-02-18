@@ -7,7 +7,7 @@ const PlantForm = ({ plantForm, setPlantForm, setPlants, setConfMessage }) => {
   const [location, setLocation] = useState("Inside");
   const [light, setLight] = useState("Indirect Light");
   const [water, setWater] = useState("Top 1/2 inch is dry");
-  const [otherWater, setOtherWater] = useState("Top 1/2 inch is dry");
+  const [otherWater, setOtherWater] = useState("");
   const [lastWatered, setLastWatered] = useState(new Date());
 
   if (plantForm === 0) return <></>;
@@ -18,18 +18,33 @@ const PlantForm = ({ plantForm, setPlantForm, setPlants, setConfMessage }) => {
     // Place date in Date format
     setLastWatered(new Date(lastWatered));
 
-    const plant = {
-      name: plantName,
-      location: location,
-      light: light,
-      water: otherWater,
-      lastWatered: [lastWatered]
-    };
+    if (water === "Other") {
+      const plant = {
+        name: plantName,
+        location: location,
+        light: light,
+        water: otherWater,
+        lastWatered: [lastWatered]
+      };
 
-    plantService
-      .create(plant)
-      .then(response => console.log(response))
-      .catch(error => setConfMessage(error.message));
+      plantService
+        .create(plant)
+        .then(response => console.log(response))
+        .catch(error => setConfMessage([error.message, 0]));
+    } else {
+      const plant = {
+        name: plantName,
+        location: location,
+        light: light,
+        water: water,
+        lastWatered: [lastWatered]
+      };
+
+      plantService
+        .create(plant)
+        .then(response => console.log(response))
+        .catch(error => setConfMessage([error.message, 0]));
+    }
 
     plantService.getAll().then(plants => {
       setPlants(plants.data);
@@ -62,14 +77,18 @@ const PlantForm = ({ plantForm, setPlantForm, setPlants, setConfMessage }) => {
           <select
             className=""
             value={water}
-            onChange={({ target }) =>
-              setWater(target.value) && setOtherWater(target.value)
-            }
+            onChange={({ target }) => setWater(target.value)}
           >
             <option>Top 1/2 inch is dry</option>
             <option>Top 1 inch is dry</option>
             <option>Other</option>
           </select>
+          <input
+            className={water === "Other" ? "plant-form-input" : "hidden"}
+            placeholder="Water requirements..."
+            value={otherWater}
+            onChange={({ target }) => setOtherWater(target.value)}
+          ></input>
         </div>
         <div className="form-group">
           <div className="plant-form-query">Light requirements:</div>
@@ -88,7 +107,10 @@ const PlantForm = ({ plantForm, setPlantForm, setPlants, setConfMessage }) => {
             type="date"
             className="plant-form-input"
             onChange={({ target }) => setLastWatered(target.value)}
-          ></input>{" "}
+          ></input>
+          <p className="plant-form-p">
+            *Leaving the date blank will default to today's date
+          </p>
         </div>
         <button className="btn " type="submit">
           Add Plant!
